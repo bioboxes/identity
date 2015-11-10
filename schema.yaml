@@ -1,6 +1,6 @@
 ---
 $schema: "http://json-schema.org/draft-04/schema#"
-title: "Bioboxes binning input file validator"
+title: "Schema for short read processor"
 type: "object"
 properties:
   version:
