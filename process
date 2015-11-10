@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# exit script if one command fails
+set -o errexit
+
+# exit script if Variable is not set
+set -o nounset
+
+INPUT=/bbx/input/biobox.yaml
+OUTPUT=/bbx/output
+METADATA=/bbx/metadata
+
+# Here we set the task, however since this only have the default task
+# we won't do anything with this value.
+TASK=$1
+
+# Ensure the biobox.yaml file is valid
+validate-biobox-file \
+  --input ${INPUT} \
+  --schema /schema.yaml
+
+# if /bbx/metadata is mounted create log.txt
+if [ -d "$METADATA" ]; then
+  echo "I copied the fastq file to the ouput directory" > $METADATA/log.txt
+fi
+
+# Parse the read locations from this file
+READS=$(yaml2json < ${INPUT} | jq --raw-output '.arguments[].fastq.value')
+
+cp ${READS} ${OUTPUT}
+
+# This command writes yaml into the biobox.yaml until the EOF symbol is reached
+cat << EOF > ${OUTPUT}/biobox.yaml
+version: 0.9.0
+arguments:
+  - fasta:
+    - id: identity_reads
+      value: reads.fq.gz
+      type: paired
+EOF
