@@ -9,7 +9,7 @@ RUN echo "deb http://debian.bioboxes.org stable main" >> /etc/apt/sources.list
 RUN apt-get update -y && \
     apt-get install -y --allow-unauthenticated validate-biobox-file wget
 
-ADD schema.yml /
+ADD schema.yaml /
 
 ENV CONVERT https://github.com/bronze1man/yaml2json/raw/master/builds/linux_386/yaml2json
 # download yaml2json and make it executable
@@ -20,4 +20,4 @@ ENV JQ http://stedolan.github.io/jq/download/linux64/jq
 RUN cd /usr/local/bin && wget --quiet ${JQ} && chmod 700 jq
 
 ADD process /usr/local/bin/
-#ENTRYPOINT ["process"]
+ENTRYPOINT ["process"]
