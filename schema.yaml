@@ -7,7 +7,7 @@ properties:
     type: "string"
     pattern: "^0.9.\\d+$"
   arguments:
-    type: "array"
+    type: "object"
     minItems: 1
     maxItems: 1
     uniqueItems: true
