@@ -7,7 +7,8 @@ RUN echo "deb http://debian.bioboxes.org stable main" >> /etc/apt/sources.list
 # Allow anauthenticated installes - not good
 # Need to do this until debian.bioboxes.org has an SSL cert
 RUN apt-get update -y && \
-    apt-get install -y --allow-unauthenticated validate-biobox-file wget
+    apt-get install -y --no-install-recommends wget ca-certificates && \
+    apt-get install -y --allow-unauthenticated validate-biobox-file
 
 ADD schema.yaml /
 
