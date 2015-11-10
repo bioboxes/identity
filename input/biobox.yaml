@@ -1,0 +1,7 @@
+---
+version: 0.9.0
+arguments:
+  - fastq:
+      id: my_fasta
+      value: "/bbx/input/reads.fq.gz"
+      type: paired
